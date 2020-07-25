@@ -22,31 +22,45 @@ class CharacterIconCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented - CharacterIconCell")
     }
+    
+    func configure(name: String, imageUrl: String) {
+        self.nameLabel.text = name
+    }
 }
 
 extension CharacterIconCell: ViewCode {
     
     func createSubviews() {
         imageView = UIImageView()
-        addSubview(imageView)
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .red
+        contentView.addSubview(imageView)
         
         nameLabel = UILabel()
-        addSubview(nameLabel)
+        nameLabel.backgroundColor = .black
+        contentView.addSubview(nameLabel)
     }
     
     func createConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             nameLabel.heightAnchor.constraint(equalToConstant: 28)
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor)
         ])
+    }
+    
+    func additionalSetup() {
+        backgroundColor = .white
+        layer.cornerRadius = 12
+        layer.masksToBounds = true
     }
 }
